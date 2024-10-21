@@ -22,6 +22,17 @@ spring:
   threads:
     virtual:
       enabled: true
+  cloud:
+    gateway:
+      routes:
+        - id: integration-service
+          uri: lb://INVENTORY-SERVICE
+          predicates:
+            - Path=/api/balance-groups/**
+        - id: balance-calculator-service
+          uri: lb://BALANCE-CALCULATOR-SERVICE
+          predicates:
+            - Path=/api/balance-group/**
 
 logging:
   file:
